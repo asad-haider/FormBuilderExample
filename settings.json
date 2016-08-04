@@ -1,0 +1,37 @@
+{
+  "form_fields": [
+    {
+      "field_name": "field1",
+      "field_data":{
+        "field_id": 1,
+        "field_title": "Name:",
+        "field_type": "text",
+        "field_value": "",
+        "field_required": false,
+        "field_disabled": false
+      }
+    },
+    {
+      "field_name": "field2",
+      "field_data":{
+        "field_id": 2,
+        "field_title": "Username:",
+        "field_type": "text",
+        "field_value": "",
+        "field_required": true,
+        "field_disabled": false
+      }
+    },
+    {
+      "field_name": "field3",
+      "field_data":{
+        "field_id": 3,
+        "field_title": "Password",
+        "field_type": "password",
+        "field_value": "",
+        "field_required": true,
+        "field_disabled": false
+      }
+    }
+  ]
+}
