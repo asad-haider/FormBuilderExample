@@ -1,13 +1,11 @@
-<div>
-    <div class="form-group">
-        <label for="{{field.field_id}}">{{field.field_title}}</label>
-        <input type="{{field.field_type}}"
-               class="form-control"
-               id="{{field.field_id}}"
-               ng-model="field.field_value"
-               value="{{field.field_value}}"
-               ng-required="field.field_required"
-               ng-disabled="field.field_disabled">
-        <span ng-show="field.field_required && !field.field_value">* required</span>
-    </div>
-</div>
+<md-input-container>
+    <label>{{field.field_title}}</label>
+    <input
+           type="{{field.field_type}}"
+           ng-model="field.field_value"
+           ng-disabled="field.field_disabled"
+           ng-required="field.field_required"
+           name="{{field.field_id}}"
+           md-maxlength="{{field.field_max}}"
+    >
+</md-input-container>

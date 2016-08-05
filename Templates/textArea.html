@@ -1,0 +1,13 @@
+<md-input-container class="md-block">
+    <label>{{field.field_title}}</label>
+    <textarea
+            ng-model="field.field_value"
+            ng-disabled="field.field_disabled"
+            ng-required="field.field_required"
+            name="{{field.field_id}}"
+            md-maxlength="{{field.field_max}}"
+            rows="{{field.field_rows}}"
+            md-select-on-focus
+    >
+    </textarea>
+</md-input-container>

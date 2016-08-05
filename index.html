@@ -3,15 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">-->
     <script src="node_modules/angular/angular.min.js"></script>
+    <!--<script src="node_modules/angular-animate/angular-animate.min.js"></script>-->
+    <!--<script src="node_modules/angular-aria/angular-aria.min.js"></script>-->
+    <!--&lt;!&ndash; Angular Material Library &ndash;&gt;-->
+    <!--<script src="node_modules/angular-material/angular-material.min.js"></script>-->
     <script src="index.js"></script>
 </head>
 <body ng-app="myApp">
+<!--<form name="form1">-->
+    <!--<md-content  md-theme="docs-dark" layout-padding="" layout="row" layout-sm="column">-->
+        <!--<text-field field-name="field1"></text-field>-->
+        <!--<text-field field-name="field2"></text-field>-->
+        <!--<text-field field-name="field3"></text-field>-->
+        <!--<text-field field-name="field4"></text-field>-->
+    <!--</md-content>-->
+    <!--<md-content  md-theme="docs-dark" layout-padding="" layout="row" layout-sm="column">-->
+        <!--<date-picker field-name="field5"></date-picker>-->
+        <!--<text-area field-name="field6"></text-area>-->
+    <!--</md-content>-->
 
-    <textfield field-name="field1"></textfield>
-    <textfield field-name="field2"></textfield>
-    <textfield field-name="field3"></textfield>
+<!--</form>-->
+<form role="form" class="form-horizontal" ng-controller="CreateFormController">
+    <h2>Form Properties</h2>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="formName">Form Name:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" ng-model="formName" id="formName" placeholder="Enter Form Name">
+            </div>
+        </div>
+
+    <div class="form-inline">
+        <label class="control-label" for="fields">Field</label>
+        <select class="form-control" id="fields" ng-model="selectedField">
+            <option ng-repeat="field in fields">{{field}}</option>
+        </select>
+        <button type="button" class="btn btn-primary" ng-click="AddField()">Add Field</button>
+    </div>
+    <br/>
+
+    <div id="fieldDiv">
+
+    </div>
+
+    <div>
+        Hello, {{settings}}!
+    </div>
+</form>
+
 
 </body>
 </html>
