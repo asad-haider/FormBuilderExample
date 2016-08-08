@@ -28,7 +28,7 @@
         }
     </style>
 </head>
-<body ng-app="myApp">
+<body ng-app="myApp" class="jumbotron" ng-controller="CreateFormController">
 <!--<form name="form1">-->
     <!--<md-content  md-theme="docs-dark" layout-padding="" layout="row" layout-sm="column">-->
         <!--<text-field field-name="field1"></text-field>-->
@@ -42,8 +42,8 @@
     <!--</md-content>-->
 
 <!--</form>-->
-<div class="jumbotron text-center" style="margin-left:auto;margin-right:auto;">
-    <form role="form" class="form-horizontal" ng-controller="CreateFormController">
+<div class="text-center" style="margin-left:auto;margin-right:auto;" >
+    <form role="form" class="form-horizontal">
         <h2>Form Properties</h2>
         <div class="form-group ">
             <label class="control-label col-sm-4" for="formName">Form Name:</label>
@@ -61,16 +61,15 @@
             </div>
         </div>
         <button type="button" class="btn btn-primary" ng-click="AddField()">Add Field</button>
+        <hr/>
 
+        <div id="fieldDiv"></div>
         <br/>
-
-        <div id="fieldDiv">
-
-        </div>
+        <button type="button" class="btn btn-success" ng-click="CreateForm()">Create Form</button>
     </form>
 </div>
-
-
-
+<div>
+    <pre>{{settings | json}}</pre>
+</div>
 </body>
 </html>

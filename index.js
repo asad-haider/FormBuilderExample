@@ -4,23 +4,35 @@ var app = angular.module("myApp", []);
 //     return $http.get('settings.json');
 // });
 
-app.controller('CreateFormController', ['$scope', '$compile', '$document', function($scope, $compile, $document) {
+app.controller('CreateFormController', ['$scope', '$compile', function($scope, $compile) {
 
     $scope.fields = ["TextField", "TextArea", "RadioButton"];
 
     var formName = $scope.formName;
-    $scope.fieldNumber = 1;
+    $scope.fieldNumber = 0;
+    $scope.formFields = [];
 
     $scope.AddField = function () {
         var selectedField = $scope.selectedField;
-        var fieldNumber =  "field" + $scope.fieldNumber + "";
+        var fieldNumber =  $scope.fieldNumber;
         var divElement = angular.element(document.querySelector('#fieldDiv'));
-        var appendHtml = $compile('<add-field form-name="{{tempFieldNumber}}" field-type="{{selectedField}}" field-number="{{fieldNumber}}"></add-field>')($scope);
+        var appendHtml = $compile('<add-field form-name="{{tempFieldNumber}}" ' +
+            'field-type="{{selectedField}}" ' +
+            'field-id="{{fieldNumber}}"' +
+            'form-fields="formFields"' +
+            '></add-field>')($scope);
         divElement.append(appendHtml);
-        console.log(appendHtml);
         $scope.fieldNumber++;
     }
 
+    $scope.CreateForm = function () {
+        $scope.settings = {
+            "form_name": $scope.formName,
+            "form_fields": $scope.formFields
+        };
+
+        console.log("Settings: " +  JSON.stringify($scope.settings));
+    }
 }]);
 
 app.directive("textField", ['settings', function(settings) {
@@ -89,26 +101,39 @@ app.directive("addField", function () {
 
     var controller = ['$scope', function ($scope) {
 
-        console.log($scope.fieldNumber);
+        $scope.fieldName = "Field" + $scope.fieldNumber
 
         $scope.AddField = function () {
-            var formFields =  [];
-            formFields.push({
+
+            var object = {
                 "field_name": $scope.fieldName,
                 "field_data": {
                     "field_title": $scope.fieldTitle,
                     "field_value": $scope.defaultValue,
+                    "field_type": $scope.selectedInputFieldType,
                     "place_holder": $scope.placeHolder,
                     "field_required": $scope.required,
                     "field_disabled": $scope.enabled
                 }
+            };
+
+            var ObjectIndex = null;
+
+            angular.forEach($scope.formFields, function(value, key) {
+                if (value.field_name === $scope.fieldName) {
+                    console.log(value);
+                    ObjectIndex = key;
+                }else{
+
+                }
             });
-            $scope.settings = [];
-            $scope.settings.push({
-                "form_name": $scope.formName,
-                "form_fields": formFields
-            });
-            console.log(JSON.stringify($scope.settings));
+
+            if(ObjectIndex == null){
+                $scope.formFields.push(object);
+            }else{
+                $scope.formFields[ObjectIndex] = object;
+            }
+            console.log(JSON.stringify($scope.formFields));
         }
     }];
 
@@ -117,15 +142,15 @@ app.directive("addField", function () {
         scope: {
             formName: '@',
             fieldType: '@',
-            fieldNumber: '@'
+            fieldNumber: '@fieldId',
+            formFields: '='
         },
-        replace:true,
         templateUrl : "Templates/AddFieldDirective.html",
         controller: controller,
         link: function (scope, elements, attrs) {
            if(scope.fieldType == 'TextField'){
                scope.types = ["text", "number", "date", "email", "url"];
-               console.log(scope.fieldNumber);
+               console.log("Field Number is: " + scope.fieldNumber);
            }
         }
     };
