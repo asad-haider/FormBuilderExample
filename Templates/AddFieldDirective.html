@@ -1,47 +1,55 @@
-<div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="fieldName">Field Name:</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="fieldName" placeholder="Enter Field Name" ng-model="fieldName">
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading collapsed" data-toggle="collapse" data-target="#{{fieldNumber}}">
+        <h3 class="panel-title">
+            Collapsed Panel
+        </h3>
     </div>
+    <div id="{{fieldNumber}}" class="collapse">
+        <div class="panel-body">
+            <div class="container text-center">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="fieldName">Field Name:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="fieldName" placeholder="Enter Field Name" ng-model="fieldName">
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="fieldTitle">Field Title:</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="fieldTitle" placeholder="Enter Field Title" ng-model="fieldTitle">
-        </div>
-    </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="fieldTitle">Field Title:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="fieldTitle" placeholder="Enter Field Title" ng-model="fieldTitle">
+                    </div>
+                </div>
 
-    <div class="form-inline">
-        <label class="control-label" for="inputFieldType">Field</label>
-        <select class="form-control" id="inputFieldType" ng-model="selectedInputFieldType">
-            <option ng-repeat="type in types">{{type}}</option>
-        </select>
-    </div>
-    <br/>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="inputFieldType">Field</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="inputFieldType" ng-model="selectedInputFieldType">
+                            <option ng-repeat="type in types">{{type}}</option>
+                        </select>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="defaultValue">Default Value:</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="defaultValue" placeholder="Enter Default Value: " ng-model="defaultValue">
-        </div>
-    </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="defaultValue">Default Value:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="defaultValue" placeholder="Enter Default Value: " ng-model="defaultValue">
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="placeHolder">Default Value:</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" id="placeHolder" placeholder="Enter Place Holder: " ng-model="placeHolder">
-        </div>
-    </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="placeHolder">Default Value:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="placeHolder" placeholder="Enter Place Holder: " ng-model="placeHolder">
+                    </div>
+                </div>
 
-    <div class="form-group" >
-        <div class="checkbox">
-            <label class="control-label col-sm-2"><input type="checkbox" ng-model="required">Required</label>
+                <div class="form-group" >
+                    <label class="checkbox-inline"><input type="checkbox" ng-model="required">Required</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-model="enabled">Enabled</label>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="AddField()">Add</button>
+            </div>
         </div>
-        <div class="checkbox">
-            <label class="control-label col-sm-2"><input type="checkbox" ng-model="enabled">Enabled</label>
-        </div>
-        <button type="button" class="btn btn-primary" ng-click="AddField()">Add</button>
     </div>
 </div>

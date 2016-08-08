@@ -7,14 +7,18 @@ var app = angular.module("myApp", []);
 app.controller('CreateFormController', ['$scope', '$compile', '$document', function($scope, $compile, $document) {
 
     $scope.fields = ["TextField", "TextArea", "RadioButton"];
+
     var formName = $scope.formName;
+    $scope.fieldNumber = 1;
 
     $scope.AddField = function () {
-
         var selectedField = $scope.selectedField;
+        var fieldNumber =  "field" + $scope.fieldNumber + "";
         var divElement = angular.element(document.querySelector('#fieldDiv'));
-        var appendHtml = $compile('<add-field form-name="{{formName}}" field-type="{{selectedField}}"></add-field>')($scope);
+        var appendHtml = $compile('<add-field form-name="{{tempFieldNumber}}" field-type="{{selectedField}}" field-number="{{fieldNumber}}"></add-field>')($scope);
         divElement.append(appendHtml);
+        console.log(appendHtml);
+        $scope.fieldNumber++;
     }
 
 }]);
@@ -84,8 +88,10 @@ app.directive("datePicker", ['settings', function(settings) {
 app.directive("addField", function () {
 
     var controller = ['$scope', function ($scope) {
-        $scope.AddField = function () {
 
+        console.log($scope.fieldNumber);
+
+        $scope.AddField = function () {
             var formFields =  [];
             formFields.push({
                 "field_name": $scope.fieldName,
@@ -102,15 +108,16 @@ app.directive("addField", function () {
                 "form_name": $scope.formName,
                 "form_fields": formFields
             });
-
             console.log(JSON.stringify($scope.settings));
         }
     }];
 
     return {
+        restrict: 'E',
         scope: {
             formName: '@',
-            fieldType: '@'
+            fieldType: '@',
+            fieldNumber: '@'
         },
         replace:true,
         templateUrl : "Templates/AddFieldDirective.html",
@@ -118,8 +125,7 @@ app.directive("addField", function () {
         link: function (scope, elements, attrs) {
            if(scope.fieldType == 'TextField'){
                scope.types = ["text", "number", "date", "email", "url"];
-               console.log(scope.types);
-
+               console.log(scope.fieldNumber);
            }
         }
     };

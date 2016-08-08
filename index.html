@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--<link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">-->
     <script src="node_modules/angular/angular.min.js"></script>
     <!--<script src="node_modules/angular-animate/angular-animate.min.js"></script>-->
@@ -11,6 +13,20 @@
     <!--&lt;!&ndash; Angular Material Library &ndash;&gt;-->
     <!--<script src="node_modules/angular-material/angular-material.min.js"></script>-->
     <script src="index.js"></script>
+
+    <style>
+        .panel-heading .panel-title:after{
+            /* symbol for "opening" panels */
+            font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+            content: "\e082";
+            float: right;
+            opacity:0.6;
+        }
+        .panel-heading.collapsed .panel-title:after  {
+            /* symbol for "collapsed" panels */
+            content: "\e081";
+        }
+    </style>
 </head>
 <body ng-app="myApp">
 <!--<form name="form1">-->
@@ -26,32 +42,34 @@
     <!--</md-content>-->
 
 <!--</form>-->
-<form role="form" class="form-horizontal" ng-controller="CreateFormController">
-    <h2>Form Properties</h2>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="formName">Form Name:</label>
-            <div class="col-sm-5">
+<div class="jumbotron text-center" style="margin-left:auto;margin-right:auto;">
+    <form role="form" class="form-horizontal" ng-controller="CreateFormController">
+        <h2>Form Properties</h2>
+        <div class="form-group ">
+            <label class="control-label col-sm-4" for="formName">Form Name:</label>
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="formName" id="formName" placeholder="Enter Form Name">
             </div>
         </div>
 
-    <div class="form-inline">
-        <label class="control-label" for="fields">Field</label>
-        <select class="form-control" id="fields" ng-model="selectedField">
-            <option ng-repeat="field in fields">{{field}}</option>
-        </select>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="fields">Field</label>
+            <div class="col-sm-4">
+                <select class="form-control" id="fields" ng-model="selectedField">
+                    <option ng-repeat="field in fields">{{field}}</option>
+                </select>
+            </div>
+        </div>
         <button type="button" class="btn btn-primary" ng-click="AddField()">Add Field</button>
-    </div>
-    <br/>
 
-    <div id="fieldDiv">
+        <br/>
 
-    </div>
+        <div id="fieldDiv">
 
-    <div>
-        Hello, {{settings}}!
-    </div>
-</form>
+        </div>
+    </form>
+</div>
+
 
 
 </body>
