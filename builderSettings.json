@@ -1,18 +1,16 @@
-[
-  {
-    "form_name":"form 1",
-    "form_fields":[
-      {
-        "field_name":"field name",
-        "field_data":
-        {
-          "field_title":"title",
-          "field_value":"value",
-          "place_holder": "hint",
-          "field_required":true,
-          "field_disabled":true
-        }
+{
+  "form_name": "gagas",
+  "form_fields": [
+    {
+      "field_name": "Field1",
+      "field_data": {
+        "field_title": "asgas",
+        "field_value": "asgas",
+        "field_type": "text",
+        "place_holder": "asgas",
+        "field_required": true,
+        "field_disabled": true
       }
-    ]
-  }
-]
+    }
+  ]
+}

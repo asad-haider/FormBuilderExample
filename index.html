@@ -6,14 +6,8 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!--<link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css">-->
     <script src="node_modules/angular/angular.min.js"></script>
-    <!--<script src="node_modules/angular-animate/angular-animate.min.js"></script>-->
-    <!--<script src="node_modules/angular-aria/angular-aria.min.js"></script>-->
-    <!--&lt;!&ndash; Angular Material Library &ndash;&gt;-->
-    <!--<script src="node_modules/angular-material/angular-material.min.js"></script>-->
     <script src="index.js"></script>
-
     <style>
         .panel-heading .panel-title:after{
             /* symbol for "opening" panels */
@@ -29,19 +23,6 @@
     </style>
 </head>
 <body ng-app="myApp" class="jumbotron" ng-controller="CreateFormController">
-<!--<form name="form1">-->
-    <!--<md-content  md-theme="docs-dark" layout-padding="" layout="row" layout-sm="column">-->
-        <!--<text-field field-name="field1"></text-field>-->
-        <!--<text-field field-name="field2"></text-field>-->
-        <!--<text-field field-name="field3"></text-field>-->
-        <!--<text-field field-name="field4"></text-field>-->
-    <!--</md-content>-->
-    <!--<md-content  md-theme="docs-dark" layout-padding="" layout="row" layout-sm="column">-->
-        <!--<date-picker field-name="field5"></date-picker>-->
-        <!--<text-area field-name="field6"></text-area>-->
-    <!--</md-content>-->
-
-<!--</form>-->
 <div class="text-center" style="margin-left:auto;margin-right:auto;" >
     <form role="form" class="form-horizontal">
         <h2>Form Properties</h2>
@@ -62,14 +43,13 @@
         </div>
         <button type="button" class="btn btn-primary" ng-click="AddField()">Add Field</button>
         <hr/>
-
         <div id="fieldDiv"></div>
         <br/>
         <button type="button" class="btn btn-success" ng-click="CreateForm()">Create Form</button>
     </form>
 </div>
-<div>
-    <pre>{{settings | json}}</pre>
+
+<div id="formPreview">
 </div>
 </body>
 </html>

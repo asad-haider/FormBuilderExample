@@ -1,11 +1,14 @@
-<md-input-container>
-    <label>{{field.field_title}}</label>
-    <input
-           type="{{field.field_type}}"
-           ng-model="field.field_value"
-           ng-disabled="field.field_disabled"
-           ng-required="field.field_required"
-           name="{{field.field_id}}"
-           md-maxlength="{{field.field_max}}"
-    >
-</md-input-container>
+<div class="form-group row">
+    <label class="control-label col-md-4" for="{{field.field_id}}">{{field.field_title}}</label>
+    <div class="col-md-4">
+        <input type="{{field.field_type}}"
+               name="{{field.field_title}}"
+               class="form-control"
+               id="{{field.field_id}}"
+               placeholder="{{field.place_holder}}"
+               ng-model="field.field_value"
+               ng-disabled="!field.field_disabled"
+               ng-required="field.field_required"
+        >
+    </div>
+</div>
