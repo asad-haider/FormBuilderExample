@@ -68,6 +68,36 @@
 
                 </div>
 
+                <div ng-show="fieldType === 'Select'">
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="optionText">Option</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="optionText" placeholder="Enter Option Text"
+                                   ng-model="selectOption.text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="optionValue">Value</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="optionValue" placeholder="Enter Option Value"
+                                   ng-model="selectOption.value">
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" ng-click="AddOption()">Add</button>
+
+                    <div class="form-group" >
+                        <label class="control-label col-md-4" for="select">Select</label>
+                        <div class="col-md-4">
+                            <select class="form-control" id="select" ng-model="selected"
+                                    ng-options="option.text for option in field_data.options">
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="form-group" >
                     <label class="checkbox-inline"><input type="checkbox" ng-model="field_data.required" ng-init="field_data.required=false">Required</label>
                     <label class="checkbox-inline"><input type="checkbox" ng-model="field_data.enabled" ng-init="field_data.enabled=true">Enabled</label>

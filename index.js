@@ -6,7 +6,7 @@ app.factory('settings', function($http){
 
 app.controller('CreateFormController', ['$scope', '$rootScope', 'Helper', function($scope, $rootScope, Helper) {
 
-    $scope.fields = ["TextField", "TextArea", "RadioButton", "CheckBox"];
+    $scope.fields = ["TextField", "TextArea", "RadioButton", "CheckBox", "Select"];
 
     $scope.fieldNumber = 1;
     $scope.formFields = [];
@@ -94,6 +94,8 @@ app.directive("addField", function () {
 
         $scope.field_data = {};
         $scope.field_data.field_id = $scope.fieldName;
+        $scope.field_data.options = [];
+        $scope.selectOption = {};
 
         $scope.AddField = function () {
 
@@ -116,7 +118,13 @@ app.directive("addField", function () {
             }else{
                 $scope.formFields[ObjectIndex] = object;
             }
-        }
+        };
+
+        $scope.AddOption = function () {
+
+            $scope.field_data.options.push($scope.selectOption);
+            $scope.selectOption = {};
+        };
     }];
 
     return {
