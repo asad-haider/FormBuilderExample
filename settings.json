@@ -1,72 +1,29 @@
 {
-  "form_name": "form1",
+  "form_name":"form 1",
   "form_fields": [
     {
-      "field_name": "field1",
-      "field_data":{
-        "field_id": 1,
-        "field_title": "Name",
-        "field_type": "text",
-        "field_value": "",
-        "field_required": false,
-        "field_disabled": false
+      "field_name":"Field1",
+      "field_data":
+      {
+        "field_id":"Field1",
+        "required":false,
+        "enabled":true,
+        "IsRadioInline":true,
+        "fieldLabel":"username",
+        "inputFieldType":"text"
       }
     },
     {
-      "field_name": "field2",
-      "field_data":{
-        "field_id": 2,
-        "field_title": "Contact Number",
-        "field_type": "number",
-        "field_value": "",
-        "field_required": true,
-        "field_disabled": false,
-        "field_max": "11"
-      }
-    },
-    {
-      "field_name": "field3",
-      "field_data":{
-        "field_id": 3,
-        "field_title": "Password",
-        "field_type": "password",
-        "field_value": "",
-        "field_required": true,
-        "field_disabled": false
-      }
-    },
-    {
-      "field_name": "field4",
-      "field_data":{
-        "field_id": 4,
-        "field_title": "Email",
-        "field_type": "email",
-        "field_value": "",
-        "field_required": true,
-        "field_disabled": false
-      }
-    },
-    {
-      "field_name": "field5",
-      "field_data":{
-        "field_id": 5,
-        "field_title": "Date",
-        "field_type": "date",
-        "field_value": "",
-        "field_required": true,
-        "field_disabled": false
-      }
-    },
-    {
-      "field_name": "field6",
-      "field_data":{
-        "field_id": 6,
-        "field_title": "Text Area",
-        "field_type": "textarea",
-        "field_value": "",
-        "field_required": true,
-        "field_disabled": false,
-        "field_rows": "5"
+      "field_name":"Field2",
+      "field_data":
+      {
+        "field_id":"Field2",
+        "required":true,
+        "enabled":true,
+        "IsRadioInline":true,
+        "fieldLabel":"gender",
+        "radioButtonOptions":"gajhkj",
+        "radioButtonValues":"bkj"
       }
     }
   ]

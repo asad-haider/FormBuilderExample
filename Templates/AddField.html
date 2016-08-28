@@ -1,0 +1,85 @@
+<div class="panel panel-default">
+    <div class="panel-heading collapsed" data-toggle="collapse" data-target="#{{fieldName}}">
+        <h3 class="panel-title">
+            {{fieldName}}
+        </h3>
+    </div>
+    <div id="{{fieldName}}" class="collapse">
+        <div class="panel-body">
+            <div class="container text-center">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="fieldTitle">Field Title</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="fieldTitle" placeholder="Enter Field Title" ng-model="field_data.fieldLabel">
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="fieldType === 'TextField'">
+                    <label class="control-label col-md-4" for="inputFieldType">Input Type </label>
+                    <div class="col-md-4">
+                        <select class="form-control" id="inputFieldType" ng-model="field_data.inputFieldType">
+                            <option ng-repeat="type in types">{{type}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="fieldType === 'TextArea'">
+                    <label class="control-label col-md-4" for="rows">Rows</label>
+                    <div class="col-md-4">
+                        <input type="number" class="form-control" id="rows" placeholder="Enter Number of Rows"
+                               ng-model="field_data.rows" ng-init="(fieldType === 'TextArea') ? field_data.rows = 5 : null"
+                        >
+                    </div>
+                </div>
+
+
+                <div ng-show="fieldType === 'RadioButton'">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="rows">Options</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  placeholder="Enter Comma Separated Options" ng-model="field_data.radioButtonOptions">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="rows">Values</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Enter Comma Separated Values" ng-model="field_data.radioButtonValues">
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="fieldType === 'CheckBox'">
+                    <div class="form-group">
+                        <label class="control-label col-md-4" for="rows">Value</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="checkboxValue" placeholder="Enter CheckBox Value"
+                                   ng-model="field_data.value">
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="checkbox-inline"><input type="checkbox" ng-model="field_data.IsChecked"
+                                                              ng-init="(fieldType === 'CheckBox') ? field_data.IsChecked=false : null"
+
+                        >Checked</label>
+                    </div>
+
+                </div>
+
+                <div class="form-group" >
+                    <label class="checkbox-inline"><input type="checkbox" ng-model="field_data.required" ng-init="field_data.required=false">Required</label>
+                    <label class="checkbox-inline"><input type="checkbox" ng-model="field_data.enabled" ng-init="field_data.enabled=true">Enabled</label>
+                    <div ng-show="fieldType === 'RadioButton'">
+                        <label class="checkbox-inline"><input type="checkbox" ng-model="field_data.IsRadioInline"
+                                                              ng-init="(fieldType === 'RadioButton') ? field_data.IsRadioInline=true : null">
+                            Inline
+                        </label>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="AddField()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

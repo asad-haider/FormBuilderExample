@@ -4,24 +4,27 @@ app.factory('settings', function($http){
     return $http.get('settings.json');
 });
 
-app.controller('CreateFormController', ['$scope', 'Helper', function($scope, Helper) {
+app.controller('CreateFormController', ['$scope', '$rootScope', 'Helper', function($scope, $rootScope, Helper) {
 
-    $scope.fields = ["TextField", "TextArea", "RadioButton"];
+    $scope.fields = ["TextField", "TextArea", "RadioButton", "CheckBox"];
 
-    var formName = $scope.formName;
-    $scope.fieldNumber = 0;
+    $scope.fieldNumber = 1;
     $scope.formFields = [];
 
     $scope.AddField = function () {
-        var selectedField = $scope.selectedField;
-        var fieldNumber =  $scope.fieldNumber;
-        var appendHtml = '<add-field form-name="{{tempFieldNumber}}" ' +
-                                'field-type="{{selectedField}}" ' +
-                                'field-id="{{fieldNumber}}"' +
-                                'form-fields="formFields"' +
-                                '></add-field>';
+        var newScope = $rootScope.$new();
+        newScope.fieldName = 'Field' +  $scope.fieldNumber;
+        newScope.selectedField = $scope.selectedField;
+        newScope.formName = $scope.formName;
+        newScope.formFields = $scope.formFields;
 
-        Helper.AppendHTML('fieldDiv', appendHtml, $scope);
+        var appendHtml = '<add-field ' +
+            'field-name={{fieldName}} ' +
+            'field-type={{selectedField}} ' +
+            'form-name={{formName}} ' +
+            'form-fields="formFields" ></add-field>';
+
+        Helper.AppendHTML('fieldDiv', appendHtml, newScope);
         $scope.fieldNumber++;
     }
 
@@ -31,7 +34,9 @@ app.controller('CreateFormController', ['$scope', 'Helper', function($scope, Hel
             "form_fields": $scope.formFields
         };
 
-        Helper.AppendHTML('formPreview', '<form-builder settings="settings"></form-builder>', $scope);
+        console.log($scope.settings);
+
+        // Helper.AppendHTML('formPreview', '<form-builder settings="settings"></form-builder>', $scope);
     }
 }]);
 
@@ -42,7 +47,6 @@ app.service('Helper', ['$compile', function($compile){
         divElement.append(appendHTML);
     }
 }]);
-
 app.directive("textField", ['settings', function(settings) {
     return {
         replace: true,
@@ -84,33 +88,25 @@ app.directive("datePicker", ['settings', function(settings) {
         }
     };
 }]);
-
 app.directive("addField", function () {
 
     var controller = ['$scope', function ($scope) {
 
-        $scope.fieldName = "Field" + $scope.fieldNumber
+        $scope.field_data = {};
+        $scope.field_data.field_id = $scope.fieldName;
 
         $scope.AddField = function () {
 
             var object = {
                 "field_name": $scope.fieldName,
-                "field_data": {
-                    "field_title": $scope.fieldTitle,
-                    "field_id": "field" + $scope.fieldNumber,
-                    "field_value": $scope.defaultValue,
-                    "field_type": $scope.selectedInputFieldType,
-                    "place_holder": $scope.placeHolder,
-                    "field_required": $scope.required,
-                    "field_disabled": $scope.enabled
-                }
+                "field_type": $scope.fieldType,
+                "field_data": $scope.field_data
             };
 
             var ObjectIndex = null;
 
             angular.forEach($scope.formFields, function(value, key) {
                 if (value.field_name === $scope.fieldName) {
-                    console.log(value);
                     ObjectIndex = key;
                 }
             });
@@ -120,7 +116,6 @@ app.directive("addField", function () {
             }else{
                 $scope.formFields[ObjectIndex] = object;
             }
-            console.log(JSON.stringify($scope.formFields));
         }
     }];
 
@@ -129,15 +124,13 @@ app.directive("addField", function () {
         scope: {
             formName: '@',
             fieldType: '@',
-            fieldNumber: '@fieldId',
+            fieldName: '@',
             formFields: '='
         },
-        templateUrl : "Templates/AddFieldDirective.html",
+        templateUrl : "Templates/AddField.html",
         controller: controller,
         link: function (scope, elements, attrs) {
-           if(scope.fieldType == 'TextField'){
-               scope.types = ["text", "number", "date", "email", "url", "password"];
-           }
+            scope.types = ["text", "number", "date", "email", "url", "password"];
         }
     };
 });
@@ -155,12 +148,12 @@ app.directive("formBuilder", ['Helper', '$compile', '$rootScope', function (Help
         controller: controller,
         link: function (scope, elements, attrs) {
 
-            angular.forEach(scope.settings.form_fields, function(field, key) {
-                var newScope = $rootScope.$new();
-                newScope.field = field.field_data;
-                var html = '<text-field field="field"></text-field>';
-                Helper.AppendHTML('form', html, newScope);
-            });
+            // angular.forEach(scope.settings.form_fields, function(field, key) {
+            //     var newScope = $rootScope.$new();
+            //     newScope.field = field.field_data;
+            //     var html = '<text-field field="field"></text-field>';
+            //     Helper.AppendHTML('form', html, newScope);
+            // });
 
         }
     };
