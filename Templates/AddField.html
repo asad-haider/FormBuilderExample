@@ -32,23 +32,31 @@
                     </div>
                 </div>
 
-
                 <div ng-show="fieldType === 'RadioButton'">
 
                     <div class="form-group">
                         <label class="control-label col-md-4" for="rows">Options</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control"  placeholder="Enter Comma Separated Options" ng-model="field_data.radioButtonOptions">
+                            <input type="text" class="form-control"  placeholder="Enter Text" ng-model="radioButton.text">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-4" for="rows">Values</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Enter Comma Separated Values" ng-model="field_data.radioButtonValues">
+                            <input type="text" class="form-control" placeholder="Enter Value" ng-model="radioButton.value">
                         </div>
                     </div>
+
+                    <button type="button" class="btn btn-primary" ng-click="AddRadioButton()">Add</button>
+
+                    <div>
+
+                    </div>
+
                 </div>
+
+
 
                 <div ng-show="fieldType === 'CheckBox'">
                     <div class="form-group">
@@ -91,7 +99,9 @@
                         <label class="control-label col-md-4" for="select">Select</label>
                         <div class="col-md-4">
                             <select class="form-control" id="select" ng-model="selected"
-                                    ng-options="option.text for option in field_data.options">
+                                    ng-options="option.text for option in field_data.options"
+                                    ng-init="(fieldType === 'Select') ? field_data.options=[] : null"
+                            >
                             </select>
                         </div>
                     </div>

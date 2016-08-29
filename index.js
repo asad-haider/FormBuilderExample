@@ -26,7 +26,7 @@ app.controller('CreateFormController', ['$scope', '$rootScope', 'Helper', functi
 
         Helper.AppendHTML('fieldDiv', appendHtml, newScope);
         $scope.fieldNumber++;
-    }
+    };
 
     $scope.CreateForm = function () {
         $scope.settings = {
@@ -94,7 +94,6 @@ app.directive("addField", function () {
 
         $scope.field_data = {};
         $scope.field_data.field_id = $scope.fieldName;
-        $scope.field_data.options = [];
         $scope.selectOption = {};
 
         $scope.AddField = function () {
