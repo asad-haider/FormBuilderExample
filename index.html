@@ -7,7 +7,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/angular/angular.min.js"></script>
-    <script src="app/app.js"></script>
     <script src="index.js"></script>
     <style>
         .panel-heading .panel-title:after{
@@ -27,22 +26,23 @@
 <div class="text-center" style="margin-left:auto;margin-right:auto;" >
     <form role="form" class="form-horizontal">
         <h2>Form Properties</h2>
+
         <div class="form-group ">
             <label class="control-label col-sm-4" for="formName">Form Name:</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="formName" id="formName" placeholder="Enter Form Name">
             </div>
         </div>
-
         <div class="form-group">
             <label class="control-label col-sm-4" for="fields">Field</label>
             <div class="col-sm-4">
-                <select class="form-control" id="fields" ng-model="selectedField">
+                <select class="form-control" id="fields" ng-model="selectedField" >
                     <option ng-repeat="field in fields">{{field}}</option>
                 </select>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" ng-click="AddField()">Add Field</button>
+
+        <button type="button" class="btn btn-primary" ng-click="AddField()" ng-disabled="selectedField === undefined">Add Field</button>
         <hr/>
         <div id="fieldDiv"></div>
         <br/>

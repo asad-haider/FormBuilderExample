@@ -1,14 +1,13 @@
 <div class="form-group row">
-    <label class="control-label col-md-4" for="{{field.field_id}}">{{field.field_title}}</label>
+    <label class="control-label col-md-4" for="{{field.field_id}}">{{field.fieldLabel}}</label>
     <div class="col-md-4">
-        <input type="{{field.field_type}}"
+        <input type="{{field.inputFieldType}}"
                name="{{field.field_title}}"
                class="form-control"
                id="{{field.field_id}}"
-               placeholder="{{field.place_holder}}"
                ng-model="field.field_value"
-               ng-disabled="!field.field_disabled"
-               ng-required="field.field_required"
+               ng-disabled="!field.enabled"
+               ng-required="field.required"
         >
     </div>
 </div>
