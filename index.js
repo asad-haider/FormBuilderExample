@@ -34,23 +34,38 @@ app.controller('CreateFormController', ['$scope', '$rootScope', 'Helper', functi
             "form_fields": $scope.formFields
         };
 
-        // console.log($scope.settings);
-
+        console.log($scope.settings);
+        Helper.ClearHTMLById('formPreview');
         Helper.AppendHTML('formPreview', '<form-builder settings="settings"></form-builder>', $scope);
-    }
+    };
+
+    $scope.$watch('formFields', function() {
+        console.log('hey, formFields has changed!');
+    });
 }]);
 app.service('Helper', ['$compile', function($compile){
     this.AppendHTML = function (elementId, html, scope) {
         var appendHTML = $compile(html)(scope);
         var element = angular.element(document.querySelector('#' + elementId));
         element.append(appendHTML);
-    }
+    };
 
-    this.RemoveHTMLByFieldNameAttribute = function (fieldNames) {
+    this.RemoveHTMLByAttribute = function (attribute, value) {
         debugger;
-        var element = angular.element(document.querySelector('[field-name=' + fieldNames + ']'));
+        var element = angular.element(document.querySelector('['+ attribute + '=' + value + ']'));
         element.remove();
-    }
+    };
+    this.RemoveHTMLById = function (elementId) {
+        debugger;
+        var element = angular.element(document.querySelector('#' + elementId));
+        element.remove();
+    };
+    this.ClearHTMLById = function (elementId) {
+        debugger;
+        var element = angular.element(document.querySelector('#' + elementId));
+        element.empty();
+    };
+
 
 }]);
 
@@ -129,19 +144,21 @@ app.directive("addField", function () {
             angular.forEach($scope.formFields, function(value, key) {
                 if (value.field_name === fieldName) {
                     $scope.formFields.splice(key, 1);
-                    Helper.RemoveHTMLByFieldNameAttribute(fieldName);
+                    Helper.RemoveHTMLByAttribute('field-name', fieldName);
                 }
             });
         };
 
         init = function () {
 
+            $scope.field_data.fieldLabel = "";
             $scope.field_data.required = false;
             $scope.field_data.enabled = true;
 
             if($scope.fieldType === 'TextField'){
 
                 $scope.types = ["text", "number", "date", "email", "url", "password", "color"];
+                $scope.field_data.inputFieldType = $scope.types[0];
 
             }else if($scope.fieldType === 'RadioButton'){
 
