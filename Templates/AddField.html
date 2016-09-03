@@ -83,15 +83,6 @@
                         </div>
                     </div>
                 </div>
-                <div ng-show="fieldType === 'CheckBox'">
-                    <div class="form-group">
-                        <label class="control-label col-md-4" for="rows">Value</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" id="checkboxValue" placeholder="Enter CheckBox Value"
-                                   ng-model="field_data.value">
-                        </div>
-                    </div>
-                </div>
                 <div ng-show="fieldType === 'Select'">
                     <div class="form-group">
                         <label class="control-label col-md-4" for="optionText">Option</label>
@@ -119,7 +110,7 @@
                                     ng-options="option.text for option in field_data.options"
                                     ng-disabled="!field_data.enabled"
                                     multiple>
-                                <option value="" selected>Select your option</option>
+                                <option value="" selected>Select</option>
                             </select>
                             <select ng-if="!field_data.multiSelect"
                                     class="form-control"  ng-model="field_data.selected"

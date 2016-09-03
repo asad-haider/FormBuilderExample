@@ -1,0 +1,23 @@
+<div class="form-group" >
+    <label class="control-label col-md-4" >{{field.fieldLabel}}</label>
+    <div class="col-md-4">
+        <select ng-if="field.multiSelect"
+                class="form-control"
+                ng-model="data.selected"
+                ng-options="option.text for option in field.options"
+                ng-disabled="!field.enabled"
+                ng-required="field.required"
+                multiple>
+            <option value="" selected>Select</option>
+        </select>
+        <select ng-if="!field.multiSelect"
+                class="form-control"
+                ng-model="data.selected"
+                ng-options="option.text for option in field.options"
+                ng-disabled="!field.enabled"
+                ng-required="field.required"
+        >
+            <option value="" selected>Select</option>
+        </select>
+    </div>
+</div>

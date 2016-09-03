@@ -65,8 +65,6 @@ app.service('Helper', ['$compile', function($compile){
         var element = angular.element(document.querySelector('#' + elementId));
         element.empty();
     };
-
-
 }]);
 
 
@@ -90,27 +88,35 @@ app.directive("textArea", ['settings', function() {
         }
     };
 }]);
-app.directive("datePicker", ['settings', function(settings) {
+app.directive("radioButton", ['settings', function() {
     return {
         replace: true,
-        templateUrl : "Templates/date.html",
+        templateUrl : "Templates/radioGroup.html",
         scope: {
-            field: '=?',
-            fieldName: '@'
-        },
-        link: function (scope, elements, attrs) {
-            settings.success(function(data) {
-                console.log(data.form_fields);
-                angular.forEach(data.form_fields, function(value, key) {
-                    if (value.field_name === scope.fieldName) {
-                        console.log(value);
-                        scope.field = value.field_data;
-                    }
-                });
-            });
+            field: '=?'
         }
     };
 }]);
+app.directive("checkBox", ['settings', function() {
+    return {
+        replace: true,
+        templateUrl : "Templates/checkBox.html",
+        scope: {
+            field: '=?'
+        }
+    };
+}]);
+app.directive("selectField", ['settings', function() {
+    return {
+        replace: true,
+        templateUrl : "Templates/select.html",
+        scope: {
+            field: '=?'
+        }
+    };
+}]);
+
+
 app.directive("addField", function () {
 
     var controller = ['$scope', 'Helper', function ($scope, Helper) {
@@ -227,12 +233,27 @@ app.directive("formBuilder", ['Helper', '$compile', '$rootScope', function (Help
 
             angular.forEach(scope.settings.form_fields, function(field, key) {
 
+                var newScope = $rootScope.$new();
+                newScope.field = field.field_data;
+                var html = '';
+
                 if(field.field_type === 'TextField'){
-                    var newScope = $rootScope.$new();
-                    newScope.field = field.field_data;
-                    var html = '<text-field field="field"></text-field>';
-                    Helper.AppendHTML('formPreview', html, newScope);
+                    html = '<text-field field="field"></text-field>';
                 }
+                else if(field.field_type === 'TextArea'){
+                    html = '<text-area field="field"></text-area>';
+                }
+                else if(field.field_type === 'RadioButton'){
+                    html = '<radio-button field="field"></radio-button>';
+                }
+                else if(field.field_type === 'CheckBox'){
+                    html = '<check-box field="field"></check-box>';
+                }
+                else if(field.field_type === 'Select'){
+                    html = '<select-field field="field"></select-field>';
+                }
+
+                Helper.AppendHTML('formPreview', html, newScope);
 
             });
 

@@ -5,6 +5,8 @@
                name="{{field.field_title}}"
                class="form-control"
                id="{{field.field_id}}"
+               placeholder="{{field.placeHolder}}"
+               ng-maxlength="{{field.inputLength}}"
                ng-model="field.field_value"
                ng-disabled="!field.enabled"
                ng-required="field.required"

@@ -46,14 +46,17 @@
         <hr/>
         <div id="fieldDiv"></div>
         <br/>
-        <button type="button" class="btn btn-success" ng-click="CreateForm()">Create Form</button>
+        <button type="button" class="btn btn-success" ng-click="CreateForm()">Preview Form</button>
     </form>
 </div>
 
-<div id="formPreview">
-    <pre>
-        {{settings}}
-    </pre>
+<div class="panel panel-default text-center" id="formDiv">
+    <div class="panel-heading">{{settings.form_name}}</div>
+    <div class="panel-body">
+        <form id="formPreview" class="form-horizontal">
+
+        </form>
+    </div>
 </div>
 </body>
 </html>

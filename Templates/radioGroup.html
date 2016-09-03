@@ -1,5 +1,17 @@
-<md-radio-group ng-model="data.group1">
-    <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
-    <md-radio-button value="Banana"> Banana </md-radio-button>
-    <md-radio-button value="Mango">Mango</md-radio-button>
-</md-radio-group>
+<div class="form-group row">
+    <label class="control-label col-md-4" for="{{field.field_id}}">{{field.fieldLabel}}</label>
+
+    <div class="col-md-4" id="{{field.field_id}}">
+        <div ng-if="!field.InlineRadioButton">
+            <div class="radio" ng-repeat="button in field.buttons" >
+                <label><input type="radio" name="fieldName" value="button.value">{{button.text}}</label>
+            </div>
+        </div>
+        <div ng-if="field.InlineRadioButton" >
+            <label class="radio-inline" ng-repeat="button in field.buttons">
+                <input type="radio" name="fieldName" value="button.value">{{button.text}}
+            </label>
+        </div>
+    </div>
+
+</div>
