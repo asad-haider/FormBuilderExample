@@ -160,6 +160,7 @@ app.directive("addField", function () {
             $scope.field_data.fieldLabel = "";
             $scope.field_data.required = false;
             $scope.field_data.enabled = true;
+            $scope.field_data.dependsUpon = null;
 
             if($scope.fieldType === 'TextField'){
 
@@ -230,6 +231,23 @@ app.directive("formBuilder", ['Helper', '$compile', '$rootScope', function (Help
         templateUrl : "Templates/FormDirective.html",
         controller: controller,
         link: function (scope, elements, attrs) {
+
+            // var dependsUpon = [];
+
+            angular.forEach(scope.settings.form_fields, function(field, key) {
+
+                // if (field.field_data.dependsUpon != null){
+                //
+                //     var dependsUpon = {
+                //         'field_name': field.field_data.,
+                //     };
+                //
+                //     dependsUpon.push();
+                // }
+                //
+                // fieldName.checked == true
+
+            });
 
             angular.forEach(scope.settings.form_fields, function(field, key) {
 
