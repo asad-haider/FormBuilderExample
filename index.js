@@ -51,17 +51,14 @@ app.service('Helper', ['$compile', function($compile){
     };
 
     this.RemoveHTMLByAttribute = function (attribute, value) {
-        debugger;
         var element = angular.element(document.querySelector('['+ attribute + '=' + value + ']'));
         element.remove();
     };
     this.RemoveHTMLById = function (elementId) {
-        debugger;
         var element = angular.element(document.querySelector('#' + elementId));
         element.remove();
     };
     this.ClearHTMLById = function (elementId) {
-        debugger;
         var element = angular.element(document.querySelector('#' + elementId));
         element.empty();
     };
@@ -73,9 +70,12 @@ app.directive("textField", ['settings', function(settings) {
         replace: true,
         templateUrl : "Templates/textField.html",
         scope: {
-            field: '=?'
+            field: '=?',
+            condition: '=?'
+
         }, link: function (scope, elements, attrs) {
-            console.log(scope.field);
+            // console.log(scope.field);
+            console.log(scope.condition);
         }
     };
 }]);
@@ -102,7 +102,8 @@ app.directive("checkBox", ['settings', function() {
         replace: true,
         templateUrl : "Templates/checkBox.html",
         scope: {
-            field: '=?'
+            field: '=?',
+            changed: '&'
         }
     };
 }]);
@@ -160,7 +161,8 @@ app.directive("addField", function () {
             $scope.field_data.fieldLabel = "";
             $scope.field_data.required = false;
             $scope.field_data.enabled = true;
-            $scope.field_data.dependsUpon = null;
+            $scope.field_data.dependsOn = null;
+            $scope.field_data.visible = true;
 
             if($scope.fieldType === 'TextField'){
 
@@ -232,28 +234,36 @@ app.directive("formBuilder", ['Helper', '$compile', '$rootScope', function (Help
         controller: controller,
         link: function (scope, elements, attrs) {
 
-            // var dependsUpon = [];
-
-            angular.forEach(scope.settings.form_fields, function(field, key) {
-
-                // if (field.field_data.dependsUpon != null){
-                //
-                //     var dependsUpon = {
-                //         'field_name': field.field_data.,
-                //     };
-                //
-                //     dependsUpon.push();
-                // }
-                //
-                // fieldName.checked == true
-
-            });
+            console.log(JSON.stringify(scope.settings));
 
             angular.forEach(scope.settings.form_fields, function(field, key) {
 
                 var newScope = $rootScope.$new();
                 newScope.field = field.field_data;
-                var html = '';
+
+                newScope.changed = function (changedField) {
+
+                    angular.forEach(scope.settings.form_fields, function(field, key) {
+
+                        var dependsOn = field.field_data.dependsOn;
+
+                        if (dependsOn !== undefined && dependsOn !== null){
+                            var mainField = dependsOn.substring(0, dependsOn.indexOf('.'));
+                            var condition = dependsOn.substring(dependsOn.indexOf('.') + 1);
+                            
+                            if(mainField === changedField.field_id){
+
+                                scope.leftHandValue = changedField.IsChecked;
+                                scope.condition = '==';
+                                scope.rightHandValue =  scope.$eval(condition.replace('checked', '').replace('==', ''));
+
+                                field.field_data.visible = scope.$eval('leftHandValue == rightHandValue');
+
+                                console.log(field.field_data.visible);
+                            }
+                        }
+                    });
+                };
 
                 if(field.field_type === 'TextField'){
                     html = '<text-field field="field"></text-field>';
@@ -265,7 +275,7 @@ app.directive("formBuilder", ['Helper', '$compile', '$rootScope', function (Help
                     html = '<radio-button field="field"></radio-button>';
                 }
                 else if(field.field_type === 'CheckBox'){
-                    html = '<check-box field="field"></check-box>';
+                    html = '<check-box field="field" changed="changed(fieldChanged)"></check-box>';
                 }
                 else if(field.field_type === 'Select'){
                     html = '<select-field field="field"></select-field>';
