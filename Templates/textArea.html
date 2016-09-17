@@ -1,4 +1,4 @@
-<div class="form-group row">
+<div class="form-group row" ng-show="field.visible">
     <label class="control-label col-md-4" for="{{field.field_id}}">{{field.fieldLabel}}</label>
     <div class="col-md-4">
             <textarea class="form-control"
@@ -6,6 +6,8 @@
                       id="{{field.field_id}}"
                       ng-required="field.required"
                       ng-disabled="!field.enabled"
+                      ng-model="field.field_value"
+                      ng-change="changed({fieldChanged: field})"
             ></textarea>
     </div>
 </div>

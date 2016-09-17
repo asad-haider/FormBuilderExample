@@ -10,6 +10,7 @@
                ng-model="field.field_value"
                ng-disabled="!field.enabled"
                ng-required="field.required"
+               ng-change="changed({fieldChanged: field})"
         >
     </div>
 </div>

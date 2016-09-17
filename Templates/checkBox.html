@@ -1,11 +1,11 @@
-<label class="checkbox-inline">
+<label class="checkbox-inline" ng-show="field.visible">
     <input type="checkbox"
            id="{{field.field_id}}"
            ng-required="field.required"
            ng-disabled="!field.enabled"
            ng-checked="field.IsChecked"
            ng-change="changed({fieldChanged: field})"
-           ng-model="field.IsChecked"
+           ng-model="field.field_value"
     >
     {{field.fieldLabel}}
 </label>

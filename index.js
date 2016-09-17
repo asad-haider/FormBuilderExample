@@ -71,10 +71,9 @@ app.directive("textField", ['settings', function(settings) {
         templateUrl : "Templates/textField.html",
         scope: {
             field: '=?',
-            condition: '=?'
+            changed: '&'
 
         }, link: function (scope, elements, attrs) {
-            // console.log(scope.field);
             console.log(scope.condition);
         }
     };
@@ -84,7 +83,8 @@ app.directive("textArea", ['settings', function() {
         replace: true,
         templateUrl : "Templates/textArea.html",
         scope: {
-            field: '=?'
+            field: '=?',
+            changed: '&'
         }
     };
 }]);
@@ -93,7 +93,8 @@ app.directive("radioButton", ['settings', function() {
         replace: true,
         templateUrl : "Templates/radioGroup.html",
         scope: {
-            field: '=?'
+            field: '=?',
+            changed: '&'
         }
     };
 }]);
@@ -112,7 +113,8 @@ app.directive("selectField", ['settings', function() {
         replace: true,
         templateUrl : "Templates/select.html",
         scope: {
-            field: '=?'
+            field: '=?',
+            changed: '&'
         }
     };
 }]);
@@ -236,6 +238,9 @@ app.directive("formBuilder", ['Helper', '$compile', '$rootScope', function (Help
 
             console.log(JSON.stringify(scope.settings));
 
+            var conditionalOperators = ['==', '!=', '>=', '<=', '>', '<'];
+            var conditions = ['selected', 'checked', 'value'];
+
             angular.forEach(scope.settings.form_fields, function(field, key) {
 
                 var newScope = $rootScope.$new();
@@ -248,37 +253,49 @@ app.directive("formBuilder", ['Helper', '$compile', '$rootScope', function (Help
                         var dependsOn = field.field_data.dependsOn;
 
                         if (dependsOn !== undefined && dependsOn !== null){
-                            var mainField = dependsOn.substring(0, dependsOn.indexOf('.'));
-                            var condition = dependsOn.substring(dependsOn.indexOf('.') + 1);
-                            
-                            if(mainField === changedField.field_id){
 
-                                scope.leftHandValue = changedField.IsChecked;
-                                scope.condition = '==';
-                                scope.rightHandValue =  scope.$eval(condition.replace('checked', '').replace('==', ''));
+                            var regex = new RegExp(/([a-zA-Z]+\d*)\.(selected|value|checked) (==|!=|>=|<=|>|<) ('.*?[^\\]'|true|false)$/);
+                            var groups = regex.exec(dependsOn);
 
-                                field.field_data.visible = scope.$eval('leftHandValue == rightHandValue');
+                            if (regex.test(dependsOn)){
+                                var fieldName = groups[1];
+                                var leftHandValue = groups[2];
+                                var operator = groups[3];
+                                var rightHandValue = groups[4];
 
-                                console.log(field.field_data.visible);
+                                if(fieldName === changedField.field_id){
+                                    var evalString = 'leftHandValue '+ operator +' rightHandValue';
+
+                                    if(leftHandValue === 'selected'){
+                                        scope.leftHandValue = changedField.selected.value;
+                                        scope.rightHandValue = rightHandValue
+                                    }else{
+                                        scope.leftHandValue = changedField.field_value;
+                                        scope.rightHandValue = scope.$eval(rightHandValue);
+                                    }
+
+                                    field.field_data.visible = scope.$eval(evalString);
+                                    console.log(field.field_data.visible);
+                                }
                             }
                         }
                     });
                 };
 
                 if(field.field_type === 'TextField'){
-                    html = '<text-field field="field"></text-field>';
+                    html = '<text-field field="field" changed="changed(fieldChanged)"></text-field>';
                 }
                 else if(field.field_type === 'TextArea'){
-                    html = '<text-area field="field"></text-area>';
+                    html = '<text-area field="field" changed="changed(fieldChanged)"></text-area>';
                 }
                 else if(field.field_type === 'RadioButton'){
-                    html = '<radio-button field="field"></radio-button>';
+                    html = '<radio-button field="field" changed="changed(fieldChanged)"></radio-button>';
                 }
                 else if(field.field_type === 'CheckBox'){
                     html = '<check-box field="field" changed="changed(fieldChanged)"></check-box>';
                 }
                 else if(field.field_type === 'Select'){
-                    html = '<select-field field="field"></select-field>';
+                    html = '<select-field field="field" changed="changed(fieldChanged)"></select-field>';
                 }
 
                 Helper.AppendHTML('formPreview', html, newScope);
